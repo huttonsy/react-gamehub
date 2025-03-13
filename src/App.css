@@ -1,0 +1,49 @@
+/* Center the entire board vertically and horizontally */
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  display: flex;              /* Enable flexbox inside the square */
+  align-items: center;       /* Vertically center text */
+  justify-content: center;   /* Horizontally center text */
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+  border: 1px solid #999;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;         /* Optional: Make X/O bold */
+}
+
+button:focus {
+  outline: none;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+h3 {
+  text-align: center;
+}
