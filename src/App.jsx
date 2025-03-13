@@ -18,15 +18,15 @@ export default function Board() {
     const nextSquares = currentSquares.slice();
     nextSquares[index] = xIsNext ? 'X' : 'O';
     
-    const newHistory = history.slice(0, currentMove + 1); // Remove any forward moves if we go back
+    const newHistory = history.slice(0, currentMove + 1); 
     setHistory([...newHistory, { squares: nextSquares }]);
     setXIsNext(!xIsNext);
-    setCurrentMove(newHistory.length); // Move to the latest step in history
+    setCurrentMove(newHistory.length); 
   }
 
   function jumpTo(move) {
     setCurrentMove(move);
-    setXIsNext(move % 2 === 0); // Alternate player turn when jumping
+    setXIsNext(move % 2 === 0); 
   }
 
   return (
@@ -66,14 +66,14 @@ export default function Board() {
 
   function calculateWinner(squares) {
     const winningLines = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-      [0, 4, 8], [2, 4, 6], // Diagonals
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+      [0, 4, 8], [2, 4, 6], 
     ];
 
     for (let [a, b, c] of winningLines) {
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a]; // Winner
+        return squares[a]; 
       }
     }
     return null;
