@@ -5,6 +5,8 @@ body, html {
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 0;
 }
 
 .board {
@@ -37,6 +39,14 @@ button:focus {
   outline: none;
 }
 
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  margin-top: 2rem; /* Adjust value as needed */
+  align-items: center;
+  justify-content: center; 
+}
+
 h2 {
   text-align: center;
   font-size: 24px;
@@ -46,3 +56,9 @@ h2 {
 h3 {
   text-align: center;
 }
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
