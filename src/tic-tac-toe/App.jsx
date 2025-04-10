@@ -6,6 +6,7 @@ import TicTacToe from "./TicTacToe";
 import Wordle from './wordle/wordle';
 import Home from "./Home";
 import RPSContainer from "./rock-paper-scissors/RPSContainer";
+import UserProfile from "./UserProfile";
 
 
 function App() {
