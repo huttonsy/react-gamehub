@@ -12,9 +12,10 @@ export default function Home() {
                         <NavLink to="/game/tic-tac-toe">Play Tic-Tac-Toe</NavLink>
                     </li>
                     <li>
-                    <NavLink to="/wordle">Play Wordle</NavLink>
+                        <NavLink to="/wordle">Play Wordle</NavLink>
                     </li> 
-                    <li><NavLink to="/rps">Rock Paper Scissors</NavLink>
+                    <li>
+                        <NavLink to="/rps">Rock Paper Scissors</NavLink>
                     </li>
                     </ul>
             </nav>
