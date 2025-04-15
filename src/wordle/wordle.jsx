@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import './wordle.css';
-import { useNavigate } from 'react-router-dom';
 
 const gameConfig = {
   attempts: 6,
@@ -41,7 +40,6 @@ function getRandomWord() {
 }
 
 function Wordle() {
-  const navigate = useNavigate();
   const [gridState, setGridState] = useState(
     Array.from({ length: gameConfig.attempts }, () =>
       Array(gameConfig.wordLength).fill("")
@@ -215,12 +213,6 @@ function Wordle() {
         <button onClick={submitGuess}>Enter</button>
       </div>
       {message && <div>{message}</div>}
-      <button 
-        className="btn btn-secondary" 
-        onClick={() => navigate('/')}
-      >
-        Back to GameHub
-      </button>
     </div>
   );
 }

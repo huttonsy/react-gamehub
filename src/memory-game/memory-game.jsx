@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Square from "./memory-game-square.jsx";
 import "./memory-game.css";
-import { useNavigate } from 'react-router-dom';
 
 function MemoryGame() {
   const [sequence, setSequence] = useState([]);
@@ -11,7 +10,6 @@ function MemoryGame() {
   const [level, setLevel] = useState(1);
   const [gameStatus, setGameStatus] = useState("idle");
   const [clickedIndex, setClickedIndex] = useState(-1);
-  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -122,12 +120,6 @@ function MemoryGame() {
           </>
         )}
       </div>
-      <button 
-        className="btn btn-secondary" 
-        onClick={() => navigate('/')}
-      >
-        Back to GameHub
-      </button>
     </div>
   );
 }

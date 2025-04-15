@@ -51,12 +51,7 @@ export default function TicTacToe() {
         </ul>
       </div>
 
-      <button 
-        className="btn btn-secondary" 
-        onClick={() => navigate('/')}
-      >
-        Back to Game Hub
-      </button>
+      <button onClick={() => navigate("/")}>Back to Game Hub</button>
     </div>
   );
 }
