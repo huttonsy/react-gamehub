@@ -122,7 +122,10 @@ function MemoryGame() {
           </>
         )}
       </div>
-      <button onClick={() => navigate('/')} className="back-button">
+      <button 
+        className="btn btn-secondary" 
+        onClick={() => navigate('/')}
+      >
         Back to GameHub
       </button>
     </div>

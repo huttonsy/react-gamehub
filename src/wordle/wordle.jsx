@@ -215,7 +215,10 @@ function Wordle() {
         <button onClick={submitGuess}>Enter</button>
       </div>
       {message && <div>{message}</div>}
-      <button onClick={() => navigate('/')} className="back-button">
+      <button 
+        className="btn btn-secondary" 
+        onClick={() => navigate('/')}
+      >
         Back to GameHub
       </button>
     </div>

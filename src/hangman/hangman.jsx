@@ -117,11 +117,14 @@ You lost! The word was: <strong>{word}</strong>
 <p className="hangman-result won">You won!</p>
 )}
 
-<button onClick={fetchNewWord} className="hangman-button">
+<button onClick={fetchNewWord} className="btn btn-secondary">
 New Game
 </button>
-<button onClick={() => navigate('/')} className="back-button">
-Back to GameHub
+<button 
+  className="btn btn-secondary" 
+  onClick={() => navigate('/')}
+>
+  Back to GameHub
 </button>
 </div>
 </div>
