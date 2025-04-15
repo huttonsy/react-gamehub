@@ -2,6 +2,7 @@ import { useState } from "react";
 import RPSWelcomeView from "./RPSWelcomeView.jsx";
 import { useNavigate } from "react-router-dom";
 import RPSGameView from "./RPSGameView.jsx";
+import "../App.css";
 
 export default function RPSContainer() {
   const [userName, setUserName] = useState("");
@@ -34,7 +35,7 @@ export default function RPSContainer() {
         className="btn btn-secondary" 
         onClick={() => navigate("/")}
       >
-        Return to Homepage
+        Back to GameHub
       </button>
     </div>
   );

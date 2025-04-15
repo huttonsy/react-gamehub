@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
+import "./App.css";
 
 export default function Home() {
     return (
@@ -16,6 +17,12 @@ export default function Home() {
                     </li> 
                     <li>
                         <NavLink to="/rps">Rock Paper Scissors</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/memory">Memory Game</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/hangman">Hangman</NavLink>
                     </li>
                     </ul>
             </nav>

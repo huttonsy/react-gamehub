@@ -10,8 +10,8 @@ import UserProfile from "./UserProfile";
 import NotFound from "./NotFound";
 import Wordle from "./wordle/wordle";
 import RPSContainer from "./rock-paper-scissors/RPSContainer";
-
-
+import MemoryGame from "./memory-game/memory-game";
+import Hangman from "./hangman/hangman";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>
     <HashRouter>
@@ -21,8 +21,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="game/tic-tac-toe" element={<TicTacToe />} />
           <Route path="/wordle" element={<Wordle />} />
           <Route path="rps" element={<RPSContainer />} />
+          <Route path="memory" element={<MemoryGame />} />
           <Route path="user/:username" element={<UserProfile />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="hangman" element={<Hangman />} />
         </Route>
       </Routes>
     </HashRouter>

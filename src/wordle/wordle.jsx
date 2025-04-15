@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import './wordle.css';
+import { useNavigate } from 'react-router-dom';
 
 const gameConfig = {
   attempts: 6,
@@ -40,48 +41,44 @@ function getRandomWord() {
 }
 
 function Wordle() {
-  const [gridState, setGridState] = useState(Array.from({ length: gameConfig.attempts }, () =>
-    Array(gameConfig.wordLength).fill("")
-  ));
+  const navigate = useNavigate();
+  const [gridState, setGridState] = useState(
+    Array.from({ length: gameConfig.attempts }, () =>
+      Array(gameConfig.wordLength).fill("")
+    )
+  );
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     fetchWordList();
 
-    // Check for theme in localStorage
-    if (localStorage.getItem("theme") === "light") {
+    document.body.classList.remove("light-mode", "dark-mode");
+
+    const savedTheme = localStorage.getItem("theme");
+    const isLight = savedTheme === "light";
+
+    if (isLight) {
       document.body.classList.add("light-mode");
     } else {
       document.body.classList.add("dark-mode");
     }
 
-    // Keydown event listener
+    const toggleButton = document.getElementById("mode-toggle");
+    if (toggleButton) {
+      toggleButton.textContent = isLight ? "🌙" : "🌞";
+    }
+
     const handleKeyDown = (event) => {
       const key = event.key.toUpperCase();
 
-      // Handle letters
-      if (/^[A-Z]$/.test(key)) {
-        addLetterToGrid(key);
-      }
-
-      // Handle backspace
-      if (key === "BACKSPACE") {
-        removeLetterFromGrid();
-      }
-
-      // Handle enter
-      if (key === "ENTER") {
-        submitGuess();
-      }
+      if (/^[A-Z]$/.test(key)) addLetterToGrid(key);
+      if (key === "BACKSPACE") removeLetterFromGrid();
+      if (key === "ENTER") submitGuess();
     };
 
-    // Add event listener for keydown
     window.addEventListener("keydown", handleKeyDown);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addLetterToGrid = (letter) => {
@@ -120,14 +117,13 @@ function Wordle() {
         cell.classList.add(status);
       }
     });
-  
+
     if (guess === targetWord) {
       setMessage("🎉 You guessed the word!");
     } else if (currentAttempt === gameConfig.attempts - 1) {
       setMessage(`Game Over! The word was: ${targetWord}`);
     }
   };
-  
 
   const evaluateWord = (guess, targetWord) => {
     let result = Array(gameConfig.wordLength).fill("incorrect");
@@ -151,22 +147,26 @@ function Wordle() {
   };
 
   const toggleTheme = () => {
+    const body = document.body;
+    const isLight = body.classList.contains("light-mode");
     const toggleButton = document.getElementById("mode-toggle");
-    document.body.classList.toggle("light-mode");
-    document.body.classList.toggle("dark-mode");
 
-    if (document.body.classList.contains("light-mode")) {
-      localStorage.setItem("theme", "light");
-      toggleButton.textContent = "🌙"; // Moon icon for light mode
-    } else {
-      localStorage.setItem("theme", "dark");
-      toggleButton.textContent = "🌞"; // Sun icon for dark mode
+    body.classList.toggle("light-mode", !isLight);
+    body.classList.toggle("dark-mode", isLight);
+
+    localStorage.setItem("theme", isLight ? "dark" : "light");
+
+    if (toggleButton) {
+      toggleButton.textContent = isLight ? "🌞" : "🌙";
     }
   };
 
   return (
-    <div className="game" id="game">
-      <h1>Wordle</h1>
+    // Use the scoped container for Wordle
+    <div className="wordle-game" id="game">
+      <header>
+        <h1>Wordle</h1>
+      </header>
       <button id="mode-toggle" onClick={toggleTheme}>🌙</button>
       <div id="wordle-grid">
         {gridState.map((row, rowIndex) => (
@@ -215,6 +215,9 @@ function Wordle() {
         <button onClick={submitGuess}>Enter</button>
       </div>
       {message && <div>{message}</div>}
+      <button onClick={() => navigate('/')} className="back-button">
+        Back to GameHub
+      </button>
     </div>
   );
 }
