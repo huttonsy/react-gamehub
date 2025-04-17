@@ -9,9 +9,9 @@
 
 .light-mode {
   --background-color: #f5f5f5;
-  --wrong: #ff4d4d;
-  --misplaced: #ffcc00;
-  --correct: #00cc66;
+  --wrong: #f09191;
+  --misplaced: #fcefb4;
+  --correct: #b4d3b2;
   --text-color: #121213;
 }
 
