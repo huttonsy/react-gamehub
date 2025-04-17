@@ -18,14 +18,14 @@
     align-items: center;
     font-style: italic;
     color: gray;
-    background-color: #1a1a1a;
+    background-color: #e0c3fc;
     border-radius: 10px;
     }
     .hangman-game {
     flex: 1;
     min-width: 300px;
     padding: 24px;
-    background-color: #1a1a1a;
+    background-color: #e0c3fc;
     border: 2px solid #ccc;
     border-radius: 10px;
     }
