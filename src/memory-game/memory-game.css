@@ -10,9 +10,6 @@ body {
   }
   
   .app {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
     padding: 2rem;
     background-color: white;
