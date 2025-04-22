@@ -1,57 +1,118 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Board from "./Board";
 import "../App.css";
+import "./TicTacToe.css";
+
+const API_BASE_URL = "https://game-room-api.fly.dev/api/rooms";
 
 export default function TicTacToe() {
-  const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
-  const [xIsNext, setXIsNext] = useState(true);
-  const [currentMove, setCurrentMove] = useState(0);
-  const navigate = useNavigate(); 
+  const [roomId, setRoomId] = useState(null);
+  const [inputRoomId, setInputRoomId] = useState("");
+  const [gameState, setGameState] = useState({
+    board: Array(9).fill(null),
+    currentPlayer: "X",
+  });
+  const navigate = useNavigate();
 
-  const currentSquares = history[currentMove].squares;
-  const winner = calculateWinner(currentSquares);
-  const status = winner
-    ? `Winner: ${winner}`
-    : `Next player: ${xIsNext ? "X" : "O"}`;
+  useEffect(() => {
+    if (roomId) {
+      const interval = setInterval(() => {
+        fetch(`${API_BASE_URL}/${roomId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setGameState(data.gameState);
+          });
+      }, 1000);
 
-  function handlePlay(index) {
-    if (currentSquares[index] || winner) return;
+      return () => clearInterval(interval);
+    }
+  }, [roomId]);
 
-    const nextSquares = currentSquares.slice();
-    nextSquares[index] = xIsNext ? "X" : "O";
-
-    const newHistory = history.slice(0, currentMove + 1);
-    setHistory([...newHistory, { squares: nextSquares }]);
-    setXIsNext(!xIsNext);
-    setCurrentMove(newHistory.length);
+  function createRoom() {
+    fetch(API_BASE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        initialState: gameState,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRoomId(data.roomId);
+        alert(`Room created! Share this code: ${data.roomId}`);
+      });
   }
 
-  function jumpTo(move) {
-    setCurrentMove(move);
-    setXIsNext(move % 2 === 0);
+  function joinRoom() {
+    if (inputRoomId.trim() === "") {
+      alert("Please enter a valid room code.");
+      return;
+    }
+
+    fetch(`${API_BASE_URL}/${inputRoomId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Room not found");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setRoomId(inputRoomId);
+        setGameState(data.gameState);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  }
+
+  function updateGameState(index) {
+    if (gameState.board[index] || calculateWinner(gameState.board)) return;
+
+    const newBoard = gameState.board.slice();
+    newBoard[index] = gameState.currentPlayer;
+
+    const updatedState = {
+      board: newBoard,
+      currentPlayer: gameState.currentPlayer === "X" ? "O" : "X",
+    };
+
+    setGameState(updatedState);
+
+    if (roomId) {
+      fetch(`${API_BASE_URL}/${roomId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ gameState: updatedState }),
+      });
+    }
   }
 
   return (
     <div className="game">
-      <h2>{status}</h2>
-      <Board squares={currentSquares} onPlay={handlePlay} />
+      <h2>{calculateWinner(gameState.board) ? `Winner: ${calculateWinner(gameState.board)}` : `Next player: ${gameState.currentPlayer}`}</h2>
+      <Board squares={gameState.board} onPlay={updateGameState} />
 
-      <div>
-        <h3>Game History</h3>
-        <ul>
-          {history.map((step, move) => {
-            const description = move ? `Go to move #${move}` : "Go to game start";
-            return (
-              <li key={move}>
-                <button onClick={() => jumpTo(move)}>{description}</button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      {!roomId && (
+        <div>
+          <button className="tictactoe-button" onClick={createRoom}>Generate Room Code</button>
+          <div>
+            <input
+              type="text"
+              placeholder="Enter Room Code"
+              value={inputRoomId}
+              onChange={(e) => setInputRoomId(e.target.value)}
+            />
+            <button className="tictactoe-button" onClick={joinRoom}>Join Room</button>
+          </div>
+        </div>
+      )}
 
-      <button onClick={() => navigate("/")}>Back to Game Hub</button>
+      <button className="back-button" onClick={() => navigate("/")}>Back to Game Hub</button>
     </div>
   );
 }
