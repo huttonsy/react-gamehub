@@ -13,11 +13,20 @@ let currentPosition = 0;
 
 async function fetchWordList() {
   try {
-    const response = await fetch("https://it3049c-hangman.fly.dev/");
+    const response = await fetch(
+      "https://it3049c-hangman.fly.dev/"
+    );
     const words = await response.json();
-    gameConfig.wordList = words
-      .map((word) => word.toUpperCase())
-      .filter((word) => word.length === gameConfig.wordLength);
+    if (typeof words === 'object' && words.word) {
+      gameConfig.wordList = [words.word.toUpperCase()];
+    } else if (Array.isArray(words)) {
+      gameConfig.wordList = words
+        .map((word) => word.toUpperCase())
+        .filter((word) => word.length === gameConfig.wordLength);
+    } else {
+      console.warn("Unexpected API response, using fallback list.");
+      gameConfig.wordList = ["APPLE", "GRAPE", "MANGO", "PLUMB", "BERRY"];
+    }
 
     if (gameConfig.wordList.length === 0) {
       console.warn("No 5-letter words found, using fallback list.");
