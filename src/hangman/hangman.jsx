@@ -9,7 +9,7 @@ const [currentLetter, setCurrentLetter] = useState("");
 const maxWrong = 6;
 
 const fetchNewWord = () => {
-fetch("https://random-word-api.herokuapp.com/word")
+fetch("https://it3049c-hangman.fly.dev/")
 .then((res) => res.json())
 .then((data) => {
 setWord(data[0].toLowerCase());
