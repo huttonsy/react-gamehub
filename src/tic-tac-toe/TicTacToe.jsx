@@ -94,7 +94,13 @@ export default function TicTacToe() {
 
   return (
     <div className="game">
-      <h2>{calculateWinner(gameState.board) ? `Winner: ${calculateWinner(gameState.board)}` : `Next player: ${gameState.currentPlayer}`}</h2>
+      <h2>
+        {calculateWinner(gameState.board) === "Draw"
+          ? "It's a Draw!"
+          : calculateWinner(gameState.board)
+          ? `Winner: ${calculateWinner(gameState.board)}`
+          : `Next player: ${gameState.currentPlayer}`}
+      </h2>
       <Board squares={gameState.board} onPlay={updateGameState} />
 
       {!roomId && (
@@ -129,5 +135,10 @@ function calculateWinner(squares) {
       return squares[a];
     }
   }
+
+  if (squares.every((square) => square !== null)) {
+    return "Draw";
+  }
+
   return null;
 }
