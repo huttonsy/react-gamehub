@@ -20,7 +20,7 @@
   }
   
   .nav-link {
-    text-decoration: none;
+    text-decoration: none !important;
     color: #b86be6;
     font-weight: 600;
     padding: 0.5rem 1rem;
