@@ -14,12 +14,10 @@ function MemoryGame() {
 
   useEffect(() => {
     if (level === 1) {
-      // Start fresh game
       const first = [generateRandomIndex()];
       setSequence(first);
       playSequence(first);
     } else {
-      // Add one more to sequence
       const next = [...sequence, generateRandomIndex()];
       setSequence(next);
       playSequence(next);
@@ -56,8 +54,8 @@ function MemoryGame() {
   function handleSquareClick(index) {
     if (isPlayingSequence || gameStatus !== "waiting") return;
   
-    setClickedIndex(index); // Highlight the clicked square
-    setTimeout(() => setClickedIndex(-1), 300); // Unhighlight after 300ms
+    setClickedIndex(index); 
+    setTimeout(() => setClickedIndex(-1), 300); 
   
     const newUserInput = [...userInput, index];
     setUserInput(newUserInput);

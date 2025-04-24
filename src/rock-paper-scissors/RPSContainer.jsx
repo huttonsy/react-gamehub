@@ -54,7 +54,7 @@ export default function RPSContainer() {
         setRoomId(data.roomId);
         alert(`Room created! Share this code: ${data.roomId}`);
       })
-      .catch((err) => alert("Failed to create room."));
+      .catch(() => alert("Failed to create room."));
   };
 
   const joinRoom = () => {
