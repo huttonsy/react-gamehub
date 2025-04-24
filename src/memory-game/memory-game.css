@@ -12,12 +12,12 @@ body {
   .app {
     margin: auto;
     text-align: center;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 2rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    width: 90%;
+    padding: 0; /* Remove padding */
+    background-color: transparent; /* Make the background transparent */
+    border-radius: 0; /* Remove rounded corners */
+    box-shadow: none; /* Remove the shadow */
+    max-width: none; /* Remove width restriction */
+    width: auto; /* Allow it to take full width */
   }
   
   h1 {
@@ -82,5 +82,4 @@ body {
   .btn:hover {
     background-color: #b86be6;
   }
-  
-  
+
