@@ -103,20 +103,24 @@ export default function TicTacToe() {
       </h2>
       <Board squares={gameState.board} onPlay={updateGameState} />
 
-      {!roomId && (
-        <div>
+      <div>
+        {!roomId && (
           <button className="tictactoe-button" onClick={createRoom}>Generate Room Code</button>
-          <div>
-            <input
-              type="text"
-              placeholder="Enter Room Code"
-              value={inputRoomId}
-              onChange={(e) => setInputRoomId(e.target.value)}
-            />
-            <button className="tictactoe-button" onClick={joinRoom}>Join Room</button>
-          </div>
+        )}
+        <div>
+          <input
+            type="text"
+            placeholder="Enter Room Code"
+            value={inputRoomId}
+            onChange={(e) => setInputRoomId(e.target.value)}
+            disabled={!!roomId} 
+          />
+          <button className="tictactoe-button" onClick={joinRoom} disabled={!!roomId}>
+            Join Room
+          </button>
         </div>
-      )}
+        {roomId && <p>Room Code: {roomId}</p>} 
+      </div>
 
       <button className="back-button" onClick={() => navigate("/")}>Back to Game Hub</button>
     </div>
