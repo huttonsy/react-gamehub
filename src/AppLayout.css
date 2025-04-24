@@ -21,27 +21,27 @@
   
   .nav-links a {
     text-decoration: none !important;
-    color: inherit; /* Ensures the color is inherited from the parent */
+    color: #6b328c; /* Explicitly set the default color */
 }
 
 .nav-link, .nav-link a {
     text-decoration: none !important;
-    color: #b86be6;
+    color: #6b328c; /* Default color */
     font-weight: 600;
     padding: 0.5rem 1rem;
     border-radius: 10px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-  
-  .nav-link:hover {
+
+.nav-link:hover {
     background-color: #f2d1f5;
-    color: #7d4b94;
-  }
-  
-  .nav-link.active {
+    color: #b86be6; /* Updated hover color */
+}
+
+.nav-link.active {
     background-color: #e7bafc;
     color: #6b328c;
     box-shadow: 0 0 8px #d38cf9;
-  }
+}
 
 

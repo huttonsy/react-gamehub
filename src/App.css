@@ -83,6 +83,24 @@ ul {
   padding: 0;
 }
 
+a {
+    text-decoration: none !important; /* Globally removes underline from all links */
+    color: #6b328c; /* Default color */
+}
+
+a:hover {
+    color: #b86be6; /* Hover color */
+}
+
+.home-container a {
+    text-decoration: none !important; /* Ensures links in the home-container have no underline */
+    color: #6b328c; /* Default color */
+}
+
+.home-container a:hover {
+    color: #b86be6; /* Hover color for links in the home-container */
+}
+
 /* Make sure buttons and other components are responsive */
 @media (max-width: 600px) {
   .square {
