@@ -14,7 +14,7 @@ let currentPosition = 0;
 async function fetchWordList() {
   try {
     const response = await fetch(
-      "https://random-word-api.herokuapp.com/word?number=100"
+      "https://it3049c-hangman.fly.dev/"
     );
     const words = await response.json();
     gameConfig.wordList = words

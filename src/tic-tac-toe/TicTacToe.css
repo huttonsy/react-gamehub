@@ -1,0 +1,16 @@
+/* Updated button styles to match the correct styling */
+.tictactoe-button, .back-button {
+  background-color: #d38cf9;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tictactoe-button:hover, .back-button:hover {
+  background-color: #b86be6;
+}

@@ -9,20 +9,37 @@ const [currentLetter, setCurrentLetter] = useState("");
 const maxWrong = 6;
 
 const fetchNewWord = () => {
-fetch("https://random-word-api.herokuapp.com/word")
-.then((res) => res.json())
-.then((data) => {
-setWord(data[0].toLowerCase());
-setGuessed([]);
-setWrong(0);
-setCurrentLetter("");
-})
-.catch(() => setWord("fallback"));
-};
+    fetch("https://it3049c-hangman.fly.dev/")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setWord(data[0].toLowerCase());
+        } else if (typeof data === "object" && data.word) {
+          setWord(data.word.toLowerCase());
+        } else {
+          console.warn("Unexpected API response format:", data);
+          setWord("fallback");
+        }
+        setGuessed([]);
+        setWrong(0);
+        setCurrentLetter("");
+      })
+      .catch((error) => {
+        console.error("Error fetching word:", error);
+        setWord("fallback");
+      });
+  };
 
 useEffect(() => {
 fetchNewWord();
 }, []);
+
+console.log("Current word:", word);
 
 const displayWord = word
 .split("")

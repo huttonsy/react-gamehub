@@ -10,6 +10,7 @@ body {
   }
   
   .app {
+    margin: auto;
     text-align: center;
     padding: 2rem;
     background-color: white;
