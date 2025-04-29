@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import PropTypes from "prop-types";
+import { UserContext } from "../UserContextInstance";
 
 const WelcomeView = ({ onGameStart, onNameChange, name }) => {
-  const [userName, setUserName] = useState(name || ""); 
+  const { username } = useContext(UserContext);
+  const [userName, setUserName] = useState(name || username || ""); 
 
   const handleNameChange = (e) => {
     const newName = e.target.value;

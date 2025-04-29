@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContextInstance";
 import RPSWelcomeView from "./RPSWelcomeView.jsx";
 import RPSGameView from "./RPSGameView.jsx";
 import "../App.css";
@@ -7,7 +8,7 @@ import "../App.css";
 const API_BASE_URL = "https://game-room-api.fly.dev/api/rooms";
 
 export default function RPSContainer() {
-  const [userName, setUserName] = useState("");
+  const { username: name, setUsername } = useContext(UserContext);
   const [inputRoomId, setInputRoomId] = useState("");
   const [roomId, setRoomId] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
@@ -35,11 +36,11 @@ export default function RPSContainer() {
   }, [roomId]);
 
   const handleNameChange = (name) => {
-    setUserName(name);
+    setUsername(name);
   };
 
   const createRoom = () => {
-    if (!userName.trim()) {
+    if (!name.trim()) {
       alert("Enter your name before creating a room.");
       return;
     }
@@ -63,7 +64,7 @@ export default function RPSContainer() {
       return;
     }
 
-    if (!userName.trim()) {
+    if (!name.trim()) {
       alert("Please enter your name before joining.");
       return;
     }
@@ -76,8 +77,8 @@ export default function RPSContainer() {
       .then((data) => {
         const joinedGameState = {
           ...data.gameState,
-          player1: data.gameState.player1 || userName,
-          player2: data.gameState.player1 && !data.gameState.player2 ? userName : data.gameState.player2,
+          player1: data.gameState.player1 || name,
+          player2: data.gameState.player1 && !data.gameState.player2 ? name : data.gameState.player2,
         };
 
         setRoomId(inputRoomId);
@@ -101,8 +102,8 @@ export default function RPSContainer() {
 
     const newState = {
       ...gameState,
-      player1: gameState.player1 || userName,
-      player2: gameState.player1 && !gameState.player2 ? userName : gameState.player2,
+      player1: gameState.player1 || name,
+      player2: gameState.player1 && !gameState.player2 ? name : gameState.player2,
     };
 
     setGameState(newState);
@@ -123,7 +124,7 @@ export default function RPSContainer() {
       {!gameStarted && (
         <>
           <RPSWelcomeView
-            name={userName}
+            name={name}
             onNameChange={handleNameChange}
             onGameStart={handleGameStart}
           />
@@ -143,7 +144,7 @@ export default function RPSContainer() {
 
       {gameStarted && (
         <RPSGameView
-          userName={userName}
+          userName={name}
           roomId={roomId}
           gameState={gameState}
           setGameState={setGameState}

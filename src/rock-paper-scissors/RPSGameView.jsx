@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import PropTypes from "prop-types";
+import { UserContext } from "../UserContextInstance";
 
 const API_BASE_URL = "https://game-room-api.fly.dev/api/rooms";
 
-export default function GameView({ userName, roomId, gameState, setGameState }) {
+export default function GameView({ roomId, gameState, setGameState }) {
+  const { username: userName } = useContext(UserContext);
   const [playerMove, setPlayerMove] = useState(null);
 
   const isPlayer1 = gameState.player1 === userName;
